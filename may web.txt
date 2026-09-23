@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexer GiftWeb — Digital Gifts</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:#080812;
+    color:#f8fafc;
+    overflow-x:hidden;
+}
+
+/* ===== BACKGROUND ===== */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:-30%;
+    background:
+        radial-gradient(circle at 20% 20%,rgba(139,92,246,.18),transparent 25%),
+        radial-gradient(circle at 80% 30%,rgba(236,72,153,.14),transparent 25%),
+        radial-gradient(circle at 50% 90%,rgba(99,102,241,.14),transparent 30%);
+    filter:blur(50px);
+    z-index:-3;
+    animation:aurora 12s ease-in-out infinite alternate;
+}
+
+@keyframes aurora{
+    from{transform:translate(-3%,-2%) scale(1);}
+    to{transform:translate(3%,2%) scale(1.08);}
+}
+
+.stars{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:-2;
+    overflow:hidden;
+}
+
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    opacity:.5;
+    animation:twinkle 3s infinite ease-in-out;
+}
+
+@keyframes twinkle{
+    0%,100%{opacity:.15;transform:scale(.7)}
+    50%{opacity:.9;transform:scale(1.4)}
+}
+
+/* ===== NAVBAR ===== */
+
+nav{
+    position:fixed;
+    top:18px;
+    left:50%;
+    transform:translateX(-50%);
+    width:min(1150px,92%);
+    padding:14px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:rgba(15,15,30,.68);
+    border:1px solid rgba(255,255,255,.1);
+    backdrop-filter:blur(20px);
+    border-radius:20px;
+    z-index:1000;
+    box-shadow:0 15px 50px rgba(0,0,0,.25);
+}
+
+.logo{
+    font-size:21px;
+    font-weight:800;
+    letter-spacing:-.5px;
+}
+
+.logo span{
+    background:linear-gradient(90deg,#a78bfa,#f472b6,#f5d76e);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.nav-links{
+    display:flex;
+    gap:25px;
+}
+
+.nav-links a{
+    color:#cbd5e1;
+    text-decoration:none;
+    font-size:14px;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:white;
+}
+
+.nav-btn{
+    padding:10px 16px;
+    border-radius:12px;
+    text-decoration:none;
+    color:white;
+    font-size:13px;
+    font-weight:700;
+    background:linear-gradient(135deg,#8b5cf6,#ec4899);
+    box-shadow:0 8px 25px rgba(139,92,246,.25);
+}
+
+/* ===== HERO ===== */
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:150px 20px 80px;
+}
+
+.hero-content{
+    max-width:900px;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:9px 16px;
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(255,255,255,.05);
+    border-radius:50px;
+    color:#d8b4fe;
+    font-size:13px;
+    margin-bottom:25px;
+}
+
+.badge::before{
+    content:"";
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#ec4899;
+    box-shadow:0 0 15px #ec4899;
+}
+
+.hero h1{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(48px,8vw,92px);
+    line-height:1;
+    margin-bottom:25px;
+}
+
+.hero h1 span{
+    background:linear-gradient(100deg,#fff,#c4b5fd,#f9a8d4,#f5d76e);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.hero p{
+    max-width:650px;
+    margin:auto;
+    color:#94a3b8;
+    font-size:17px;
+    line-height:1.8;
+}
+
+.hero-buttons{
+    margin-top:35px;
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:14px 23px;
+    border-radius:14px;
+    text-decoration:none;
+    font-weight:700;
+    font-size:14px;
+    transition:.3s;
+    display:inline-block;
+}
+
+.btn-primary{
+    color:white;
+    background:linear-gradient(135deg,#8b5cf6,#ec4899);
+    box-shadow:0 12px 35px rgba(139,92,246,.3);
+}
+
+.btn-secondary{
+    color:white;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.05);
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+}
+
+/* ===== GENERAL ===== */
+
+section{
+    width:min(1150px,92%);
+    margin:auto;
+    padding:100px 0;
+}
+
+.section-heading{
+    text-align:center;
+    margin-bottom:55px;
+}
+
+.section-heading .small{
+    color:#a78bfa;
+    font-size:13px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:3px;
+}
+
+.section-heading h2{
+    margin-top:12px;
+    font-family:'Playfair Display',serif;
+    font-size:clamp(34px,5vw,55px);
+}
+
+.section-heading p{
+    color:#94a3b8;
+    max-width:600px;
+    margin:15px auto 0;
+    line-height:1.7;
+}
+
+/* ===== CATEGORY CARDS ===== */
+
+.categories{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.category-card{
+    position:relative;
+    padding:30px;
+    min-height:220px;
+    border-radius:25px;
+    overflow:hidden;
+    cursor:pointer;
+    border:1px solid rgba(255,255,255,.09);
+    background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.025));
+    backdrop-filter:blur(20px);
+    transition:.4s;
+}
+
+.category-card:hover{
+    transform:translateY(-8px);
+    border-color:rgba(167,139,250,.45);
+    box-shadow:0 25px 60px rgba(0,0,0,.3);
+}
+
+.category-card::after{
+    content:"";
+    position:absolute;
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    background:var(--glow);
+    filter:blur(70px);
+    right:-60px;
+    bottom:-60px;
+    opacity:.25;
+}
+
+.icon{
+    font-size:42px;
+    margin-bottom:20px;
+}
+
+.category-card h3{
+    font-size:20px;
+    margin-bottom:9px;
+}
+
+.category-card p{
+    color:#94a3b8;
+    font-size:13px;
+    line-height:1.6;
+}
+
+.explore{
+    display:inline-block;
+    margin-top:20px;
+    color:#c4b5fd;
+    font-size:13px;
+    font-weight:700;
+}
+
+/* ===== SERVICES ===== */
+
+.service-section{
+    display:none;
+}
+
+.service-section.active{
+    display:block;
+    animation:fadeIn .5s ease;
+}
+
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(15px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
+.service-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:30px;
+    gap:20px;
+}
+
+.service-header h3{
+    font-family:'Playfair Display',serif;
+    font-size:32px;
+}
+
+.back-btn{
+    cursor:pointer;
+    border:1px solid rgba(255,255,255,.1);
+    color:#cbd5e1;
+    background:rgba(255,255,255,.05);
+    padding:10px 15px;
+    border-radius:10px;
+}
+
+.service-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.service-card{
+    padding:24px;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.035);
+    border-radius:20px;
+    transition:.35s;
+}
+
+.service-card:hover{
+    transform:translateY(-5px);
+    border-color:rgba(236,72,153,.3);
+    background:rgba(255,255,255,.055);
+}
+
+.service-card .service-icon{
+    font-size:30px;
+}
+
+.service-card h4{
+    margin:15px 0 8px;
+    font-size:17px;
+}
+
+.service-card p{
+    color:#94a3b8;
+    font-size:13px;
+    line-height:1.6;
+    min-height:42px;
+}
+
+.card-actions{
+    display:flex;
+    gap:8px;
+    margin-top:20px;
+}
+
+.card-actions a,
+.card-actions button{
+    flex:1;
+    padding:10px;
+    border-radius:10px;
+    border:0;
+    cursor:pointer;
+    font-size:12px;
+    font-weight:700;
+    text-align:center;
+    text-decoration:none;
+}
+
+.preview{
+    color:#ddd6fe;
+    background:rgba(139,92,246,.15);
+}
+
+.order{
+    color:white;
+    background:linear-gradient(135deg,#8b5cf6,#ec4899);
+}
+
+/* ===== PORTFOLIO ===== */
+
+.portfolio{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.portfolio-card{
+    height:270px;
+    border-radius:22px;
+    overflow:hidden;
+    position:relative;
+    border:1px solid rgba(255,255,255,.08);
+    background:
+        radial-gradient(circle at 20% 30%,rgba(236,72,153,.5),transparent 30%),
+        radial-gradient(circle at 80% 70%,rgba(99,102,241,.5),transparent 35%),
+        #111122;
+}
+
+.portfolio-content{
+    position:absolute;
+    inset:0;
+    padding:25px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    background:linear-gradient(transparent,rgba(0,0,0,.85));
+}
+
+.portfolio-content h3{
+    font-size:20px;
+}
+
+.portfolio-content p{
+    color:#cbd5e1;
+    font-size:12px;
+    margin-top:5px;
+}
+
+/* ===== PRICING ===== */
+
+.pricing{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.price-card{
+    padding:35px 28px;
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:25px;
+    background:rgba(255,255,255,.035);
+}
+
+.price-card{
+    border-color:rgba(167,139,250,.5);
+    box-shadow:0 20px 70px rgba(139,92,246,.12);
+    transform:translateY(-8px);
+}
+
+.price-card h3{
+    font-size:20px;
+}
+
+.price{
+    font-size:38px;
+    font-weight:800;
+    margin:20px 0;
+}
+
+.price span{
+    color:#94a3b8;
+    font-size:13px;
+    font-weight:400;
+}
+
+.features{
+    list-style:none;
+    margin:20px 0;
+}
+
+.features li{
+    color:#cbd5e1;
+    font-size:13px;
+    padding:8px 0;
+}
+
+/* ===== CTA ===== */
+
+.cta{
+    text-align:center;
+    padding:100px 30px;
+    border-radius:35px;
+    border:1px solid rgba(255,255,255,.09);
+    background:
+        radial-gradient(circle at 50% 0%,rgba(139,92,246,.2),transparent 50%),
+        rgba(255,255,255,.035);
+}
+
+.cta h2{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(35px,5vw,55px);
+}
+
+.cta p{
+    color:#94a3b8;
+    max-width:550px;
+    margin:15px auto 30px;
+    line-height:1.7;
+}
+
+/* ===== FOOTER ===== */
+
+footer{
+    border-top:1px solid rgba(255,255,255,.08);
+    padding:35px 20px;
+    text-align:center;
+    color:#64748b;
+    font-size:13px;
+}
+
+footer strong{
+    color:#c4b5fd;
+}
+
+/* ===== MODAL ===== */
+
+.modal{
+    position:fixed;
+    inset:0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    background:rgba(0,0,0,.75);
+    backdrop-filter:blur(10px);
+    z-index:2000;
+    padding:20px;
+}
+
+.modal.active{
+    display:flex;
+}
+
+.modal-box{
+    width:min(550px,100%);
+    padding:35px;
+    border-radius:25px;
+    background:#111120;
+    border:1px solid rgba(255,255,255,.12);
+    position:relative;
+}
+
+.close{
+    position:absolute;
+    right:20px;
+    top:15px;
+    cursor:pointer;
+    color:#94a3b8;
+    font-size:22px;
+}
+
+.modal-box h2{
+    font-family:'Playfair Display',serif;
+    margin-bottom:12px;
+}
+
+.modal-box p{
+    color:#94a3b8;
+    line-height:1.7;
+}
+
+.order-form{
+    margin-top:20px;
+}
+
+.order-form input,
+.order-form textarea{
+    width:100%;
+    margin-bottom:12px;
+    padding:13px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(255,255,255,.05);
+    color:white;
+    outline:none;
+    font-family:inherit;
+}
+
+.order-form textarea{
+    height:100px;
+    resize:none;
+}
+
+/* ===== MOBILE ===== */
+
+@media(max-width:850px){
+    .categories,
+    .service-grid,
+    .portfolio,
+    .pricing{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .nav-links{
+        display:none;
+    }
+}
+
+@media(max-width:600px){
+    .categories,
+    .service-grid,
+    .portfolio,
+    .pricing{
+        grid-template-columns:1fr;
+    }
+
+    nav{
+        padding:12px 15px;
+    }
+
+    .hero{
+        padding-top:130px;
+    }
+
+    .hero h1{
+        font-size:50px;
+    }
+
+    .service-header{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .price-card.featured{
+        transform:none;
+    }
+}
+/* =========================
+   ORDER FORM
+========================= */
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #f8fafc;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 13px 15px;
+
+    border: 1px solid rgba(168, 85, 247, 0.25);
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease;
+}
+
+
+/* Focus Effect */
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+
+    border-color: #a855f7;
+
+    background: rgba(168, 85, 247, 0.08);
+
+    box-shadow:
+        0 0 0 3px rgba(168, 85, 247, 0.10),
+        0 0 18px rgba(168, 85, 247, 0.15);
+}
+
+
+/* Placeholder */
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #64748b;
+}
+
+
+/* Select */
+
+.form-group select {
+    cursor: pointer;
+    appearance: none;
+
+    background-image:
+        linear-gradient(45deg, transparent 50%, #a855f7 50%),
+        linear-gradient(135deg, #a855f7 50%, transparent 50%);
+
+    background-position:
+        calc(100% - 18px) 18px,
+        calc(100% - 12px) 18px;
+
+    background-size: 6px 6px;
+    background-repeat: no-repeat;
+
+    padding-right: 40px;
+}
+
+
+/* Select Options */
+
+.form-group select option {
+    background: #111827;
+    color: #ffffff;
+}
+
+
+/* Textarea */
+
+.form-group textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+
+/* Submit Button */
+
+form .btn-primary {
+    width: 100%;
+    margin-top: 5px;
+
+    border: none;
+    cursor: pointer;
+
+    padding: 14px 20px;
+
+    border-radius: 12px;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    color: #ffffff;
+
+    background: linear-gradient(
+        135deg,
+        #9333ea,
+        #ec4899
+    );
+
+    box-shadow:
+        0 8px 25px rgba(168, 85, 247, 0.25);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        filter 0.25s ease;
+}
+
+
+/* Button Hover */
+
+form .btn-primary:hover {
+
+    transform: translateY(-2px);
+
+    filter: brightness(1.1);
+
+    box-shadow:
+        0 12px 35px rgba(168, 85, 247, 0.40);
+}
+
+
+/* Button Click */
+
+form .btn-primary:active {
+    transform: translateY(0);
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 12px 13px;
+        font-size: 13px;
+    }
+
+    form .btn-primary {
+        padding: 13px 16px;
+        font-size: 14px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars" id="stars"></div>
+
+<!-- NAVBAR -->
+<nav>
+    <div class="logo">NEXER <span>GIFTWEB</span></div>
+
+    <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <a href="#services" class="nav-btn">Explore ✨</a>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="home">
+    <div class="hero-content">
+
+        <div class="badge">Premium Digital Gift Experiences</div>
+
+        <h1>
+            Turn Your Feelings<br>
+            Into <span>Memories.</span>
+        </h1>
+
+        <p>
+            Create beautiful, personalized and interactive digital gifts
+            for the people who matter most. Make every moment unforgettable
+            with Nexer GiftWeb.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="#services" class="btn btn-primary">
+                Explore Services →
+            </a>
+
+            <a href="#portfolio" class="btn btn-secondary">
+                View Portfolio
+            </a>
+        </div>
+
+    </div>
+</header>
+
+<!-- SERVICES -->
+<section id="services">
+
+    <div class="section-heading">
+        <div class="small">What We Create</div>
+        <h2>Our Services</h2>
+        <p>
+            Choose a category and discover the perfect digital experience
+            for your special moment.
+        </p>
+    </div>
+
+    <!-- CATEGORY -->
+    <div class="categories" id="categoryGrid">
+
+        <div class="category-card" style="--glow:#ec4899"
+             onclick="openCategory('love')">
+            <div class="icon">❤️</div>
+            <h3>Love & Relationship</h3>
+            <p>
+                Romantic stories, proposals, anniversaries and
+                special experiences for couples.
+            </p>
+            <span class="explore">Explore →</span>
+        </div>
+
+        <div class="category-card" style="--glow:#f59e0b"
+             onclick="openCategory('birthday')">
+            <div class="icon">🎂</div>
+            <h3>Birthday</h3>
+            <p>
+                Surprise someone with a beautiful personalized
+                birthday experience.
+            </p>
+            <span class="explore">Explore →</span>
+        </div>
+
+        <div class="category-card" style="--glow:#f43f5e"
+             onclick="openCategory('moments')">
+            <div class="icon">💍</div>
+            <h3>Special Moments</h3>
+            <p>
+                Engagement, wedding, graduation, baby announcements
+                and more.
+            </p>
+            <span class="explore">Explore →</span>
+        </div>
+
+        <div class="category-card" style="--glow:#6366f1"
+             onclick="openCategory('digital')">
+            <div class="icon">🎁</div>
+            <h3>Digital Gift</h3>
+            <p>
+                Interactive gift boxes, secret messages, memory boxes
+                and music experiences.
+            </p>
+            <span class="explore">Explore →</span>
+        </div>
+
+        <div class="category-card" style="--glow:#10b981"
+             onclick="openCategory('emotional')">
+            <div class="icon">🌹</div>
+            <h3>Emotional & Personal</h3>
+            <p>
+                Personal letters, thank-you pages, friendship and
+                family experiences.
+            </p>
+            <span class="explore">Explore →</span>
+        </div>
+
+        <div class="category-card" style="--glow:#f5d76e"
+             onclick="openCategory('premium')">
+            <div class="icon">✨</div>
+            <h3>Premium Combo</h3>
+            <p>
+                Complete premium experiences designed especially
+                for unforgettable moments.
+            </p>
+            <span class="explore">Explore →</span>
+        </div>
+
+    </div>
+
+    <!-- SERVICE DETAILS -->
+    <div id="serviceContainer"></div>
+
+</section>
+
+
+
+
+
+<!-- PRICING -->
+<section id="pricing">
+
+    <div class="section-heading">
+        <div class="small">Our Packages</div>
+        <h2>Choose Your Experience</h2>
+        <p>
+            Choose the perfect package for your special digital gift.
+        </p>
+    </div>
+
+
+    <div class="pricing">
+
+
+        <!-- PRE-MADE -->
+        <div class="price-card">
+
+            <h3>📦 Pre-Made</h3>
+
+            <div class="price">
+                ৳299 – ৳499 <span>/ website</span>
+            </div>
+
+            <p style="color:#94a3b8;font-size:13px;line-height:1.6;margin-top:10px;">
+                Choose a ready-made design, add your memories,
+                and get your special website quickly. ❤️
+            </p>
+
+            <ul class="features">
+                <li>✓ Ready-Made Website</li>
+                <li>✓ Professional Design</li>
+                <li>✓ Mobile Responsive</li>
+                <li>✓ Custom Name & Text</li>
+                <li>✓ Your Photos Added</li>
+                <li>✓ Background Music</li>
+                <li>✓ Basic Animation</li>
+                <li>✓ Fast Delivery</li>
+                <li>✓ WhatsApp Support</li>
+            </ul>
+
+            <button
+                class="btn btn-secondary"
+                onclick="openOrder('Pre-Made Website')">
+                Order Pre-Made →
+            </button>
+
+        </div>
+
+
+        <!-- PREMIUM -->
+        <div class="price-card featured">
+
+            <h3>✨ Premium</h3>
+
+            <div class="price">
+                ৳599 – ৳999 <span>/ website</span>
+            </div>
+
+            <p style="color:#94a3b8;font-size:13px;line-height:1.6;margin-top:10px;">
+                A more beautiful and interactive experience
+                with premium design and advanced features. ✨
+            </p>
+
+            <ul class="features">
+                <li>✓ Premium Website Design</li>
+                <li>✓ Fully Mobile Responsive</li>
+                <li>✓ Custom Name & Text</li>
+                <li>✓ Multiple Photo Sections</li>
+                <li>✓ Background Music</li>
+                <li>✓ Advanced Animation</li>
+                <li>✓ Interactive Elements</li>
+                <li>✓ Premium Effects</li>
+                <li>✓ Custom Color & Theme</li>
+                <li>✓ Fast Delivery</li>
+                <li>✓ WhatsApp Support</li>
+            </ul>
+
+            <button
+                class="btn btn-primary"
+                onclick="openOrder('Premium Website')">
+                Order Premium →
+            </button>
+
+        </div>
+
+
+        <!-- CUSTOM -->
+        <div class="price-card">
+
+            <h3>👑 Custom</h3>
+
+            <div class="price">
+                Custom
+            </div>
+
+            <p style="color:#94a3b8;font-size:13px;line-height:1.6;margin-top:10px;">
+                Your idea, your design, your experience.
+                Everything is created according to your requirements. 👑
+            </p>
+
+            <ul class="features">
+                <li>✓ Fully Custom Design</li>
+                <li>✓ Unique Website Concept</li>
+                <li>✓ Custom UI/UX</li>
+                <li>✓ Advanced Animation</li>
+                <li>✓ Custom Effects</li>
+                <li>✓ Interactive Features</li>
+                <li>✓ Custom Music & Media</li>
+                <li>✓ Special Requests</li>
+                <li>✓ Personalized Experience</li>
+                <li>✓ WhatsApp Support</li>
+            </ul>
+
+            <button
+                class="btn btn-secondary"
+                onclick="openOrder('Custom Website')">
+                Discuss Project →
+            </button>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+</section>
+
+<!-- CTA -->
+<section id="contact">
+
+    <div class="cta">
+
+        <h2>Make Someone Smile Today. ❤️</h2>
+
+        <p>
+            Give someone more than a normal gift.
+            Give them a digital memory they can keep forever.
+        </p>
+
+        <button class="btn btn-primary"
+                onclick="openOrder('Custom Gift Website')">
+            Create My Gift →
+        </button>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+    © 2026 <strong>Nexer GiftWeb</strong>. All Rights Reserved.
+</footer>
+
+<!-- ORDER MODAL -->
+<div class="modal" id="orderModal">
+
+    <div class="modal-box">
+
+        <div class="close" onclick="closeOrder()">×</div>
+
+        <h2>Let's Create Something Special ❤️</h2>
+
+        <p id="selectedService">
+            Tell us what kind of digital gift you want.
+        </p>
+
+<form onsubmit="sendOrder(event)">
+
+    <!-- NAME -->
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input
+            type="text"
+            id="name"
+            placeholder="Enter your name"
+            required
+        >
+    </div>
+
+
+    <!-- WHATSAPP NUMBER -->
+    <div class="form-group">
+        <label for="contactNumber">WhatsApp Number</label>
+        <input
+            type="tel"
+            id="contactNumber"
+            placeholder="01XXXXXXXXX"
+            required
+        >
+    </div>
+
+
+    <!-- SELECT PACKAGE -->
+    <div class="form-group">
+        <label for="package">Select Package</label>
+
+        <select id="package" required>
+            <option value="">Choose a package</option>
+            <option value="Pre-Made — ৳299–৳499">
+                📦 Pre-Made — ৳299–৳499
+            </option>
+            <option value="Premium — ৳599–৳999">
+                ✨ Premium — ৳599–৳999
+            </option>
+            <option value="Custom — Custom Price">
+                👑 Custom — Custom Price
+            </option>
+        </select>
+    </div>
+
+
+    <!-- SELECT SERVICE -->
+    <div class="form-group">
+        <label for="serviceSelect">Select Service</label>
+
+        <select id="serviceSelect" required>
+            <option value="">Choose a service</option>
+
+            <option value="Love Story">💕 Love Story</option>
+            <option value="Proposal">💌 Proposal</option>
+            <option value="Anniversary">💖 Anniversary</option>
+            <option value="Girlfriend Special">🥰 Girlfriend Special</option>
+            <option value="Boyfriend Special">😎 Boyfriend Special</option>
+            <option value="Long Distance Love">🫶 Long Distance Love</option>
+            <option value="Valentine Special">💋 Valentine Special</option>
+            <option value="Sorry / Man Bhanganো">💔 Sorry / Man Bhanganো</option>
+
+            <option value="Birthday Surprise">🎂 Birthday Surprise</option>
+            <option value="Birthday Gift">🎁 Birthday Gift</option>
+            <option value="Birthday Countdown">⏳ Birthday Countdown</option>
+            <option value="Birthday Memories">📸 Birthday Memories</option>
+            <option value="Birthday Wishes">💝 Birthday Wishes</option>
+            <option value="Kids Birthday">🎈 Kids Birthday</option>
+
+            <option value="Engagement">💍 Engagement</option>
+            <option value="Wedding Invitation">💒 Wedding Invitation</option>
+            <option value="Marriage Anniversary">❤️ Marriage Anniversary</option>
+            <option value="Baby Announcement">👶 Baby Announcement</option>
+            <option value="Baby Shower">🍼 Baby Shower</option>
+            <option value="Graduation">🎓 Graduation</option>
+
+            <option value="Digital Gift Box">🎁 Digital Gift Box</option>
+            <option value="Secret Message">💌 Secret Message</option>
+            <option value="Unlock My Gift">🔐 Unlock My Gift</option>
+            <option value="Surprise Box">🎀 Surprise Box</option>
+            <option value="Memory Box">📦 Memory Box</option>
+            <option value="Photo Gallery Gift">🖼️ Photo Gallery Gift</option>
+            <option value="Music & Memories">🎵 Music & Memories</option>
+
+            <option value="Sorry">🥺 Sorry</option>
+            <option value="Thank You">❤️ Thank You</option>
+            <option value="Friendship Special">🫂 Friendship Special</option>
+            <option value="Family Special">👨‍👩‍👧 Family Special</option>
+            <option value="You Are Special">🌹 You Are Special</option>
+            <option value="Memory Lane">💭 Memory Lane</option>
+            <option value="Personal Love Letter">✍️ Personal Love Letter</option>
+
+            <option value="Love Story Combo">❤️ Love Story Combo</option>
+            <option value="Birthday Combo">🎂 Birthday Combo</option>
+            <option value="Proposal Combo">💍 Proposal Combo</option>
+            <option value="Ultimate Surprise Combo">🎁 Ultimate Surprise Combo</option>
+            <option value="Couple Premium Website">💕 Couple Premium Website</option>
+            <option value="Custom Premium Website">👑 Custom Premium Website</option>
+
+        </select>
+    </div>
+
+
+    <!-- MESSAGE -->
+    <div class="form-group">
+        <label for="message">
+    Message / Requirements
+    <span style="color:#64748b;font-size:12px;">(Optional)</span>
+</label>
+        <textarea
+            id="message"
+            rows="4"
+            placeholder="Tell us what you want in your website..."
+          
+        ></textarea>
+    </div>
+
+
+    <!-- SUBMIT -->
+    <button type="submit" class="btn btn-primary">
+        💬 Order via WhatsApp
+    </button>
+
+</form>
+
+    </div>
+
+</div>
+
+<script>
+
+/* =========================
+   STAR BACKGROUND
+========================= */
+
+const stars = document.getElementById("stars");
+
+for(let i=0;i<90;i++){
+
+    const star = document.createElement("div");
+
+    star.className = "star";
+
+    star.style.left = Math.random()*100 + "%";
+    star.style.top = Math.random()*100 + "%";
+    star.style.animationDelay = Math.random()*4 + "s";
+
+    stars.appendChild(star);
+}
+
+
+/* =========================
+   SERVICES DATA
+========================= */
+
+const services = {
+
+    love:{
+        title:"❤️ Love & Relationship",
+        items:[
+            ["💕","Love Story","Turn your relationship journey into a beautiful digital story."],
+            ["💌","Proposal","Create a memorable digital proposal for your special person."],
+            ["💖","Anniversary","Celebrate your special day with a personalized experience."],
+            ["🥰","Girlfriend Special","A special website made just for her."],
+            ["😎","Boyfriend Special","Create something unforgettable for him."],
+            ["🫶","Long Distance Love","Keep your love connected even from far away."],
+            ["💖","Valentine Special","A romantic digital surprise for Valentine's Day."],
+            ["💔","Sorry Spatial","Say sorry in a creative and emotional way."]
+        ]
+    },
+
+birthday:{
+    title:"🎂 Birthday",
+    items:[
+        ["🎂","Birthday Surprise","A beautiful surprise website for a birthday."],
+        ["🎁","Birthday Gift","Turn your birthday gift into a digital experience."],
+        ["⏳","Birthday Countdown","Build excitement with an interactive countdown."],
+        ["📸","Birthday Memories","Collect and present beautiful birthday memories."],
+        ["💝","Birthday Wishes","Create a personalized birthday wish page."],
+        ["🎈","Kids Birthday","Fun and colorful digital birthday experience."],
+
+        ["🥰","Girlfriend Birthday Special","A romantic and personalized birthday website made especially for your girlfriend. ❤️"],
+        ["😎","Boyfriend Birthday Special","A special personalized birthday website made especially for your boyfriend. 💙"],
+        ["🫂","Best Friend Birthday Special","A fun and memorable digital birthday experience made especially for your best friend. 🫶"]
+    ]
+},
+    moments:{
+        title:"💍 Special Moments",
+        items:[
+            ["💍","Engagement","Celebrate the beginning of a beautiful journey."],
+            ["💒","Wedding Invitation","A modern interactive digital wedding invitation."],
+            ["❤️","Marriage Anniversary","Celebrate years of love and memories."],
+            ["👶","Baby Announcement","Share your beautiful news in a special way."],
+            ["🍼","Baby Shower","Create a memorable baby shower experience."],
+            ["🎓","Graduation","Celebrate an important milestone."]
+        ]
+    },
+
+    digital:{
+        title:"🎁 Digital Gift",
+        items:[
+            ["🎁","Digital Gift Box","A virtual gift box full of surprises."],
+            ["💌","Secret Message","Hide a personal message for someone special."],
+            ["🔐","Unlock My Gift","Let them unlock their surprise step by step."],
+            ["🎀","Surprise Box","An interactive surprise experience."],
+            ["📦","Memory Box","Store special memories inside a digital box."],
+            ["🖼️","Photo Gallery Gift","A beautiful interactive photo gallery."],
+            ["🎵","Music & Memories","Combine photos, memories and music."]
+        ]
+    },
+
+    emotional:{
+        title:"🌹 Emotional & Personal",
+        items:[
+            ["🥺","Sorry","A heartfelt digital apology."],
+            ["❤️","Thank You","Show someone how much you appreciate them."],
+            ["🫂","Friendship Special","Celebrate a special friendship."],
+            ["👨‍👩‍👧","Family Special","A personalized experience for family."],
+            ["🌹","You Are Special","Tell someone how important they are."],
+            ["💭","Memory Lane","Walk through your favorite memories."],
+            ["✍️","Personal Love Letter","A beautiful digital personal letter."]
+        ]
+    },
+
+    premium:{
+        title:"✨ Premium Combo",
+        items:[
+            ["❤️","Love Story Combo","A complete romantic digital experience."],
+            ["🎂","Birthday Combo","Multiple birthday features in one website."],
+            ["💍","Proposal Combo","A premium interactive proposal experience."],
+            ["🎁","Ultimate Surprise Combo","The ultimate digital surprise package."],
+            ["💕","Couple Premium Website","A complete premium couple website."],
+            ["👑","Custom Premium Website","Fully customized premium experience."]
+        ]
+    }
+
+};
+
+
+/* =========================
+   OPEN CATEGORY
+========================= */
+
+function openCategory(category){
+
+    const data = services[category];
+
+    document.getElementById("categoryGrid").style.display = "none";
+
+    const container =
+        document.getElementById("serviceContainer");
+
+    container.innerHTML = `
+
+        <div class="service-section active">
+
+            <div class="service-header">
+
+                <h3>${data.title}</h3>
+
+                <button
+                    class="back-btn"
+                    onclick="backToCategories()">
+                    ← All Categories
+                </button>
+
+            </div>
+
+            <div class="service-grid">
+
+                ${data.items.map((item,index)=>`
+
+                    <div class="service-card">
+
+                        <div class="service-icon">
+                            ${item[0]}
+                        </div>
+
+                        <h4>${item[1]}</h4>
+
+                        <p>${item[2]}</p>
+
+                        <div class="card-actions">
+
+                            <button
+                                class="preview"
+                                onclick="previewService('${item[1]}')">
+                                Preview
+                            </button>
+
+                            <button
+                                class="order"
+                                onclick="openOrder('${item[1]}')">
+                                Order
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                `).join("")}
+
+            </div>
+
+        </div>
+    `;
+
+    document.getElementById("services")
+        .scrollIntoView({behavior:"smooth"});
+}
+
+
+/* =========================
+   BACK
+========================= */
+
+function backToCategories(){
+
+    document.getElementById("serviceContainer").innerHTML = "";
+
+    document.getElementById("categoryGrid").style.display =
+        "grid";
+
+}
+
+
+/* =========================
+   PREVIEW
+========================= */
+
+function previewService(service){
+
+    alert(
+        "✨ Preview: " +
+        service +
+        "\n\nএখানে তোমার আসল demo website-এর link বসাতে পারবে।"
+    );
+
+}
+
+
+/* =========================
+   ORDER MODAL
+========================= */
+
+const modal =
+    document.getElementById("orderModal");
+
+function openOrder(service){
+
+    document.getElementById("selectedService").innerHTML =
+        "Selected Service: <strong>" +
+        service +
+        "</strong>";
+
+    modal.classList.add("active");
+
+}
+
+function closeOrder(){
+
+    modal.classList.remove("active");
+
+}
+
+modal.addEventListener("click",function(e){
+
+    if(e.target === modal){
+        closeOrder();
+    }
+
+});
+
+
+/* =========================
+   SEND ORDER
+========================= */
+
+function sendOrder(e){
+
+    e.preventDefault();
+
+    const name =
+        document.getElementById("name").value;
+
+    const contact =
+        document.getElementById("contactNumber").value;
+
+    const message =
+        document.getElementById("message").value;
+
+    const service =
+        document.getElementById("selectedService")
+        .innerText;
+
+  
+    const whatsapp = "8801610615278";
+
+    const text =
+        `Hello Nexer GiftWeb!%0A%0A` +
+        `Name: ${encodeURIComponent(name)}%0A` +
+        `Contact: ${encodeURIComponent(contact)}%0A` +
+        `${encodeURIComponent(service)}%0A` +
+        `Message: ${encodeURIComponent(message)}`;
+
+    window.open(
+        `https://wa.me/${whatsapp}?text=${text}`,
+        "_blank"
+    );
+
+}
+
+</script>
+
+</body>
+</html>
