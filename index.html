@@ -1,1 +1,2636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexer GiftWeb — Digital Gifts</title>
 
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:#080812;
+    color:#f8fafc;
+    overflow-x:hidden;
+}
+
+/* ===== BACKGROUND ===== */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:-30%;
+    background:
+        radial-gradient(circle at 20% 20%,rgba(139,92,246,.18),transparent 25%),
+        radial-gradient(circle at 80% 30%,rgba(236,72,153,.14),transparent 25%),
+        radial-gradient(circle at 50% 90%,rgba(99,102,241,.14),transparent 30%);
+    filter:blur(50px);
+    z-index:-3;
+    animation:aurora 12s ease-in-out infinite alternate;
+}
+
+@keyframes aurora{
+    from{transform:translate(-3%,-2%) scale(1);}
+    to{transform:translate(3%,2%) scale(1.08);}
+}
+
+.stars{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:-2;
+    overflow:hidden;
+}
+
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    opacity:.5;
+    animation:twinkle 3s infinite ease-in-out;
+}
+
+@keyframes twinkle{
+    0%,100%{opacity:.15;transform:scale(.7)}
+    50%{opacity:.9;transform:scale(1.4)}
+}
+
+/* ===== NAVBAR ===== */
+
+nav{
+    position:fixed;
+    top:18px;
+    left:50%;
+    transform:translateX(-50%);
+    width:min(1150px,92%);
+    padding:14px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:rgba(15,15,30,.68);
+    border:1px solid rgba(255,255,255,.1);
+    backdrop-filter:blur(20px);
+    border-radius:20px;
+    z-index:1000;
+    box-shadow:0 15px 50px rgba(0,0,0,.25);
+}
+
+.logo{
+    font-size:21px;
+    font-weight:800;
+    letter-spacing:-.5px;
+}
+
+.logo span{
+    background:linear-gradient(90deg,#a78bfa,#f472b6,#f5d76e);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.nav-links{
+    display:flex;
+    gap:25px;
+}
+
+.nav-links a{
+    color:#cbd5e1;
+    text-decoration:none;
+    font-size:14px;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:white;
+}
+
+.nav-btn{
+    padding:10px 16px;
+    border-radius:12px;
+    text-decoration:none;
+    color:white;
+    font-size:13px;
+    font-weight:700;
+    background:linear-gradient(135deg,#8b5cf6,#ec4899);
+    box-shadow:0 8px 25px rgba(139,92,246,.25);
+}
+
+/* ===== HERO ===== */
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:150px 20px 80px;
+}
+
+.hero-content{
+    max-width:900px;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:9px 16px;
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(255,255,255,.05);
+    border-radius:50px;
+    color:#d8b4fe;
+    font-size:13px;
+    margin-bottom:25px;
+}
+
+.badge::before{
+    content:"";
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#ec4899;
+    box-shadow:0 0 15px #ec4899;
+}
+
+.hero h1{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(48px,8vw,92px);
+    line-height:1;
+    margin-bottom:25px;
+}
+
+.hero h1 span{
+    background:linear-gradient(100deg,#fff,#c4b5fd,#f9a8d4,#f5d76e);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.hero p{
+    max-width:650px;
+    margin:auto;
+    color:#94a3b8;
+    font-size:17px;
+    line-height:1.8;
+}
+
+.hero-buttons{
+    margin-top:35px;
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:14px 23px;
+    border-radius:14px;
+    text-decoration:none;
+    font-weight:700;
+    font-size:14px;
+    transition:.3s;
+    display:inline-block;
+}
+
+.btn-primary{
+    color:white;
+    background:linear-gradient(135deg,#8b5cf6,#ec4899);
+    box-shadow:0 12px 35px rgba(139,92,246,.3);
+}
+
+.btn-secondary{
+    color:white;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.05);
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+}
+
+/* ===== GENERAL ===== */
+
+section{
+    width:min(1150px,92%);
+    margin:auto;
+    padding:100px 0;
+}
+
+.section-heading{
+    text-align:center;
+    margin-bottom:55px;
+}
+
+.section-heading .small{
+    color:#a78bfa;
+    font-size:13px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:3px;
+}
+
+.section-heading h2{
+    margin-top:12px;
+    font-family:'Playfair Display',serif;
+    font-size:clamp(34px,5vw,55px);
+}
+
+.section-heading p{
+    color:#94a3b8;
+    max-width:600px;
+    margin:15px auto 0;
+    line-height:1.7;
+}
+
+/* ===== CATEGORY CARDS ===== */
+
+.categories{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.category-card{
+    position:relative;
+    padding:30px;
+    min-height:220px;
+    border-radius:25px;
+    overflow:hidden;
+    cursor:pointer;
+    border:1px solid rgba(255,255,255,.09);
+    background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.025));
+    backdrop-filter:blur(20px);
+    transition:.4s;
+}
+
+.category-card:hover{
+    transform:translateY(-8px);
+    border-color:rgba(167,139,250,.45);
+    box-shadow:0 25px 60px rgba(0,0,0,.3);
+}
+
+.category-card::after{
+    content:"";
+    position:absolute;
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    background:var(--glow);
+    filter:blur(70px);
+    right:-60px;
+    bottom:-60px;
+    opacity:.25;
+}
+
+.icon{
+    font-size:42px;
+    margin-bottom:20px;
+}
+
+.category-card h3{
+    font-size:20px;
+    margin-bottom:9px;
+}
+
+.category-card p{
+    color:#94a3b8;
+    font-size:13px;
+    line-height:1.6;
+}
+
+.explore{
+    display:inline-block;
+    margin-top:20px;
+    color:#c4b5fd;
+    font-size:13px;
+    font-weight:700;
+}
+
+/* ===== SERVICES ===== */
+
+.service-section{
+    display:none;
+}
+
+.service-section.active{
+    display:block;
+    animation:fadeIn .5s ease;
+}
+
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(15px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
+.service-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:30px;
+    gap:20px;
+}
+
+.service-header h3{
+    font-family:'Playfair Display',serif;
+    font-size:32px;
+}
+
+.back-btn{
+    cursor:pointer;
+    border:1px solid rgba(255,255,255,.1);
+    color:#cbd5e1;
+    background:rgba(255,255,255,.05);
+    padding:10px 15px;
+    border-radius:10px;
+}
+
+.service-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.service-card{
+    padding:24px;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.035);
+    border-radius:20px;
+    transition:.35s;
+}
+
+.service-card:hover{
+    transform:translateY(-5px);
+    border-color:rgba(236,72,153,.3);
+    background:rgba(255,255,255,.055);
+}
+
+.service-card .service-icon{
+    font-size:30px;
+}
+
+.service-card h4{
+    margin:15px 0 8px;
+    font-size:17px;
+}
+
+.service-card p{
+    color:#94a3b8;
+    font-size:13px;
+    line-height:1.6;
+    min-height:42px;
+}
+
+.card-actions{
+    display:flex;
+    gap:8px;
+    margin-top:20px;
+}
+
+.card-actions a,
+.card-actions button{
+    flex:1;
+    padding:10px;
+    border-radius:10px;
+    border:0;
+    cursor:pointer;
+    font-size:12px;
+    font-weight:700;
+    text-align:center;
+    text-decoration:none;
+}
+
+.preview{
+    color:#ddd6fe;
+    background:rgba(139,92,246,.15);
+}
+
+.order{
+    color:white;
+    background:linear-gradient(135deg,#8b5cf6,#ec4899);
+}
+
+/* ===== PORTFOLIO ===== */
+
+.portfolio{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.portfolio-card{
+    height:270px;
+    border-radius:22px;
+    overflow:hidden;
+    position:relative;
+    border:1px solid rgba(255,255,255,.08);
+    background:
+        radial-gradient(circle at 20% 30%,rgba(236,72,153,.5),transparent 30%),
+        radial-gradient(circle at 80% 70%,rgba(99,102,241,.5),transparent 35%),
+        #111122;
+}
+
+.portfolio-content{
+    position:absolute;
+    inset:0;
+    padding:25px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    background:linear-gradient(transparent,rgba(0,0,0,.85));
+}
+
+.portfolio-content h3{
+    font-size:20px;
+}
+
+.portfolio-content p{
+    color:#cbd5e1;
+    font-size:12px;
+    margin-top:5px;
+}
+
+/* ===== PRICING ===== */
+
+.pricing{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.price-card{
+    padding:35px 28px;
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:25px;
+    background:rgba(255,255,255,.035);
+}
+
+.price-card{
+    border-color:rgba(167,139,250,.5);
+    box-shadow:0 20px 70px rgba(139,92,246,.12);
+    transform:translateY(-8px);
+}
+
+.price-card h3{
+    font-size:20px;
+}
+
+.price{
+    font-size:38px;
+    font-weight:800;
+    margin:20px 0;
+}
+
+.price span{
+    color:#94a3b8;
+    font-size:13px;
+    font-weight:400;
+}
+
+.features{
+    list-style:none;
+    margin:20px 0;
+}
+
+.features li{
+    color:#cbd5e1;
+    font-size:13px;
+    padding:8px 0;
+}
+
+/* ===== CTA ===== */
+
+.cta{
+    text-align:center;
+    padding:100px 30px;
+    border-radius:35px;
+    border:1px solid rgba(255,255,255,.09);
+    background:
+        radial-gradient(circle at 50% 0%,rgba(139,92,246,.2),transparent 50%),
+        rgba(255,255,255,.035);
+}
+
+.cta h2{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(35px,5vw,55px);
+}
+
+.cta p{
+    color:#94a3b8;
+    max-width:550px;
+    margin:15px auto 30px;
+    line-height:1.7;
+}
+
+/* ===== FOOTER ===== */
+
+footer{
+    border-top:1px solid rgba(255,255,255,.08);
+    padding:35px 20px;
+    text-align:center;
+    color:#64748b;
+    font-size:13px;
+}
+
+footer strong{
+    color:#c4b5fd;
+}
+
+/* ===== MODAL ===== */
+
+.modal{
+    position:fixed;
+    inset:0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    background:rgba(0,0,0,.75);
+    backdrop-filter:blur(10px);
+    z-index:2000;
+    padding:20px;
+}
+
+.modal.active{
+    display:flex;
+}
+
+.modal-box{
+    width:min(550px,100%);
+    padding:35px;
+    border-radius:25px;
+    background:#111120;
+    border:1px solid rgba(255,255,255,.12);
+    position:relative;
+}
+
+.close{
+    position:absolute;
+    right:20px;
+    top:15px;
+    cursor:pointer;
+    color:#94a3b8;
+    font-size:22px;
+}
+
+.modal-box h2{
+    font-family:'Playfair Display',serif;
+    margin-bottom:12px;
+}
+
+.modal-box p{
+    color:#94a3b8;
+    line-height:1.7;
+}
+
+.order-form{
+    margin-top:20px;
+}
+
+.order-form input,
+.order-form textarea{
+    width:100%;
+    margin-bottom:12px;
+    padding:13px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(255,255,255,.05);
+    color:white;
+    outline:none;
+    font-family:inherit;
+}
+
+.order-form textarea{
+    height:100px;
+    resize:none;
+}
+
+/* ===== MOBILE ===== */
+
+@media(max-width:850px){
+    .categories,
+    .service-grid,
+    .portfolio,
+    .pricing{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .nav-links{
+        display:none;
+    }
+}
+
+@media(max-width:600px){
+    .categories,
+    .service-grid,
+    .portfolio,
+    .pricing{
+        grid-template-columns:1fr;
+    }
+
+    nav{
+        padding:12px 15px;
+    }
+
+    .hero{
+        padding-top:130px;
+    }
+
+    .hero h1{
+        font-size:50px;
+    }
+
+    .service-header{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .price-card.featured{
+        transform:none;
+    }
+}
+/* =========================
+   ORDER FORM
+========================= */
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #f8fafc;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 13px 15px;
+
+    border: 1px solid rgba(168, 85, 247, 0.25);
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease;
+}
+
+
+/* Focus Effect */
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+
+    border-color: #a855f7;
+
+    background: rgba(168, 85, 247, 0.08);
+
+    box-shadow:
+        0 0 0 3px rgba(168, 85, 247, 0.10),
+        0 0 18px rgba(168, 85, 247, 0.15);
+}
+
+
+/* Placeholder */
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #64748b;
+}
+
+
+/* Select */
+
+.form-group select {
+    cursor: pointer;
+    appearance: none;
+
+    background-image:
+        linear-gradient(45deg, transparent 50%, #a855f7 50%),
+        linear-gradient(135deg, #a855f7 50%, transparent 50%);
+
+    background-position:
+        calc(100% - 18px) 18px,
+        calc(100% - 12px) 18px;
+
+    background-size: 6px 6px;
+    background-repeat: no-repeat;
+
+    padding-right: 40px;
+}
+
+
+/* Select Options */
+
+.form-group select option {
+    background: #111827;
+    color: #ffffff;
+}
+
+
+/* Textarea */
+
+.form-group textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+
+/* Submit Button */
+
+form .btn-primary {
+    width: 100%;
+    margin-top: 5px;
+
+    border: none;
+    cursor: pointer;
+
+    padding: 14px 20px;
+
+    border-radius: 12px;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    color: #ffffff;
+
+    background: linear-gradient(
+        135deg,
+        #9333ea,
+        #ec4899
+    );
+
+    box-shadow:
+        0 8px 25px rgba(168, 85, 247, 0.25);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        filter 0.25s ease;
+}
+
+
+/* Button Hover */
+
+form .btn-primary:hover {
+
+    transform: translateY(-2px);
+
+    filter: brightness(1.1);
+
+    box-shadow:
+        0 12px 35px rgba(168, 85, 247, 0.40);
+}
+
+
+/* Button Click */
+
+form .btn-primary:active {
+    transform: translateY(0);
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 12px 13px;
+        font-size: 13px;
+    }
+
+    form .btn-primary {
+        padding: 13px 16px;
+        font-size: 14px;
+    }
+}
+
+/* ===== NEXER PREMIUM SERVICE CARDS ===== */
+
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.service-card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: 25px;
+    border-radius: 24px;
+    border: 1px solid rgba(196, 181, 253, 0.16);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(139, 92, 246, 0.12),
+            rgba(255, 255, 255, 0.035) 48%,
+            rgba(236, 72, 153, 0.07)
+        );
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
+
+    transition:
+        transform 0.35s ease,
+        border-color 0.35s ease,
+        box-shadow 0.35s ease,
+        background 0.35s ease;
+}
+
+/* Soft glow */
+.service-card::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    width: 150px;
+    height: 150px;
+    top: -75px;
+    right: -65px;
+    border-radius: 50%;
+    background: #a855f7;
+    filter: blur(65px);
+    opacity: 0.17;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-7px);
+    border-color: rgba(216, 180, 254, 0.48);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(139, 92, 246, 0.17),
+            rgba(255, 255, 255, 0.055),
+            rgba(236, 72, 153, 0.11)
+        );
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.25),
+        0 0 28px rgba(139, 92, 246, 0.12);
+}
+
+.service-card:hover::before {
+    opacity: 0.42;
+}
+
+/* Service icon */
+.service-card .service-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    margin-bottom: 17px;
+    border-radius: 17px;
+
+    font-size: 29px;
+
+    background: linear-gradient(
+        135deg,
+        rgba(139, 92, 246, 0.22),
+        rgba(236, 72, 153, 0.17)
+    );
+
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    box-shadow: inset 0 0 18px rgba(167, 139, 250, 0.06);
+
+    transition: transform 0.35s ease;
+}
+
+.service-card:hover .service-icon {
+    transform: translateY(-3px) rotate(-4deg) scale(1.06);
+}
+
+/* Gradient service title */
+.service-card h4 {
+    margin: 0 0 11px;
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.5;
+    letter-spacing: -0.3px;
+
+    background: linear-gradient(
+        100deg,
+        #ffffff,
+        #ddd6fe 55%,
+        #f9a8d4
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Description */
+.service-card p {
+    color: #a8b2c5;
+    font-size: 13px;
+    line-height: 1.8;
+    min-height: 47px;
+    margin: 0;
+}
+
+/* Action buttons */
+.card-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 23px;
+}
+
+.card-actions a,
+.card-actions button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+
+    min-width: 0;
+    padding: 12px 10px;
+    border-radius: 12px;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    text-decoration: none;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+/* Preview */
+.card-actions .preview {
+    color: #ddd6fe;
+    border: 1px solid rgba(167, 139, 250, 0.23);
+    background: rgba(139, 92, 246, 0.12);
+}
+
+.card-actions .preview:hover {
+    background: rgba(139, 92, 246, 0.23);
+    box-shadow: 0 5px 18px rgba(139, 92, 246, 0.15);
+    transform: translateY(-2px);
+}
+
+/* Order */
+.card-actions .order {
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(120deg, #7c3aed, #db2777);
+    box-shadow: 0 5px 16px rgba(139, 92, 246, 0.16);
+}
+
+.card-actions .order:hover {
+    box-shadow: 0 7px 24px rgba(219, 39, 119, 0.28);
+    transform: translateY(-2px);
+}
+
+.card-actions button:active {
+    transform: scale(0.97);
+}
+
+/* Tablet */
+@media (max-width: 850px) {
+    .service-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 17px;
+    }
+
+    .service-card {
+        padding: 22px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 520px) {
+    .service-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .service-card {
+        padding: 22px;
+        border-radius: 21px;
+    }
+
+    .service-card p {
+        min-height: 0;
+    }
+
+    .card-actions {
+        margin-top: 19px;
+    }
+}
+
+/* Accessibility: reduce motion when requested */
+@media (prefers-reduced-motion: reduce) {
+    .service-card,
+    .service-card::before,
+    .service-icon,
+    .card-actions button {
+        transition: none;
+    }
+
+    .service-card:hover,
+    .service-card:hover .service-icon {
+        transform: none;
+    }
+}
+
+/* ===== NEXER PREMIUM CATEGORY CARDS ===== */
+
+.categories {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.category-card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: 265px;
+    padding: 30px 27px;
+    border-radius: 27px;
+
+    border: 1px solid rgba(196, 181, 253, 0.16);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(139, 92, 246, 0.13),
+            rgba(17, 17, 34, 0.72) 55%,
+            rgba(236, 72, 153, 0.08)
+        );
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.035);
+
+    transition:
+        transform 0.4s cubic-bezier(.2,.8,.2,1),
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+/* Animated ambient glow */
+.category-card::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    width: 190px;
+    height: 190px;
+    top: -85px;
+    right: -75px;
+    border-radius: 50%;
+    background: var(--glow, #a855f7);
+    filter: blur(75px);
+    opacity: 0.20;
+    pointer-events: none;
+    transition:
+        opacity 0.4s ease,
+        transform 0.5s ease;
+}
+
+/* Subtle light sweep */
+.category-card::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: -120%;
+    width: 70%;
+    height: 100%;
+    transform: skewX(-18deg);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.045),
+        transparent
+    );
+    pointer-events: none;
+    transition: left 0.7s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-9px);
+    border-color: var(--glow, #a78bfa);
+
+    box-shadow:
+        0 22px 55px rgba(0, 0, 0, 0.30),
+        0 0 28px color-mix(
+            in srgb,
+            var(--glow, #a78bfa) 16%,
+            transparent
+        ),
+        inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.category-card:hover::before {
+    opacity: 0.42;
+    transform: scale(1.25);
+}
+
+.category-card:hover::after {
+    left: 150%;
+}
+
+/* Premium icon container */
+.category-card .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 65px;
+    height: 65px;
+    margin-bottom: 23px;
+
+    border-radius: 21px;
+    font-size: 33px;
+
+    background: linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--glow, #a855f7) 23%, transparent),
+        rgba(255, 255, 255, 0.035)
+    );
+
+    border: 1px solid color-mix(
+        in srgb,
+        var(--glow, #a855f7) 32%,
+        transparent
+    );
+
+    box-shadow:
+        0 8px 25px color-mix(
+            in srgb,
+            var(--glow, #a855f7) 10%,
+            transparent
+        ),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+.category-card:hover .icon {
+    transform: translateY(-3px) rotate(-5deg) scale(1.08);
+    box-shadow:
+        0 10px 28px color-mix(
+            in srgb,
+            var(--glow, #a855f7) 23%,
+            transparent
+        );
+}
+
+/* Gradient category title */
+.category-card h3 {
+    position: relative;
+    width: fit-content;
+    max-width: 100%;
+    margin-bottom: 12px;
+
+    font-size: clamp(17px, 1.5vw, 20px);
+    font-weight: 800;
+    line-height: 1.45;
+    letter-spacing: -0.45px;
+
+    background: linear-gradient(
+        100deg,
+        #ffffff 5%,
+        #ddd6fe 55%,
+        #f9a8d4 100%
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Description */
+.category-card p {
+    color: #a4aec2;
+    font-size: 13px;
+    line-height: 1.85;
+    max-width: 310px;
+}
+
+/* Explore link */
+.category-card .explore {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+
+    margin-top: 22px;
+    padding: 10px 14px;
+
+    border-radius: 11px;
+    border: 1px solid rgba(167, 139, 250, 0.18);
+
+    color: #ddd6fe;
+    background: rgba(139, 92, 246, 0.09);
+
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+
+    transition:
+        gap 0.3s ease,
+        background 0.3s ease,
+        border-color 0.3s ease;
+}
+
+.category-card:hover .explore {
+    gap: 15px;
+    background: rgba(139, 92, 246, 0.17);
+    border-color: rgba(196, 181, 253, 0.35);
+}
+
+/* Tablet */
+@media (max-width: 850px) {
+    .categories {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+    }
+
+    .category-card {
+        min-height: 250px;
+        padding: 24px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 520px) {
+    .categories {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .category-card {
+        min-height: auto;
+        padding: 25px;
+        border-radius: 23px;
+    }
+
+    .category-card .icon {
+        width: 58px;
+        height: 58px;
+        font-size: 29px;
+        border-radius: 18px;
+        margin-bottom: 19px;
+    }
+
+    .category-card h3 {
+        font-size: 19px;
+    }
+
+    .category-card p {
+        font-size: 13px;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .category-card,
+    .category-card::before,
+    .category-card::after,
+    .category-card .icon,
+    .category-card .explore {
+        transition: none;
+    }
+
+    .category-card:hover,
+    .category-card:hover .icon {
+        transform: none;
+    }
+}
+
+/* ===== PREMIUM CATEGORY EXPLORE BUTTONS ===== */
+
+.category-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Equal spacing keeps all Explore buttons aligned */
+.category-card .explore {
+    margin-top: auto;
+    align-self: center;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 145px;
+    min-height: 44px;
+    padding: 12px 25px;
+    margin-bottom: 4px;
+
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 50px;
+
+    background: linear-gradient(
+        110deg,
+        #ff4fd8 0%,
+        #a855f7 48%,
+        #6d5dfc 100%
+    );
+
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    text-decoration: none;
+
+    box-shadow:
+        0 0 10px rgba(217, 70, 239, 0.55),
+        0 0 24px rgba(168, 85, 247, 0.35),
+        inset 0 1px 2px rgba(255, 255, 255, 0.35);
+
+    cursor: pointer;
+    position: relative;
+    isolation: isolate;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease;
+}
+
+/* Glowing outer aura */
+.category-card .explore::before {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: inherit;
+    background: linear-gradient(
+        90deg,
+        #ff4fd8,
+        #8b5cf6,
+        #38bdf8,
+        #ff4fd8
+    );
+    background-size: 250% 100%;
+    filter: blur(12px);
+    opacity: 0.45;
+    z-index: -1;
+    animation: exploreGlow 4s linear infinite;
+}
+
+/* Soft moving light across the button */
+.category-card .explore::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 65%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.55),
+        transparent
+    );
+    transform: skewX(-22deg);
+    transition: left 0.65s ease;
+    pointer-events: none;
+}
+
+.category-card .explore:hover {
+    transform: translateY(-3px) scale(1.05);
+
+    box-shadow:
+        0 0 15px rgba(255, 79, 216, 0.8),
+        0 0 32px rgba(168, 85, 247, 0.65),
+        0 0 50px rgba(109, 93, 252, 0.3),
+        inset 0 1px 3px rgba(255, 255, 255, 0.5);
+}
+
+.category-card .explore:hover::after {
+    left: 150%;
+}
+
+.category-card .explore:active {
+    transform: scale(0.96);
+}
+
+@keyframes exploreGlow {
+    0% {
+        background-position: 0% 50%;
+        opacity: 0.35;
+    }
+    50% {
+        background-position: 100% 50%;
+        opacity: 0.7;
+    }
+    100% {
+        background-position: 200% 50%;
+        opacity: 0.35;
+    }
+}
+
+/* Mobile adjustment */
+@media (max-width: 600px) {
+    .category-card .explore {
+        min-width: 135px;
+        min-height: 42px;
+        padding: 11px 22px;
+        font-size: 13px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .category-card .explore,
+    .category-card .explore::before,
+    .category-card .explore::after {
+        animation: none;
+        transition: none;
+    }
+}
+
+/* Stop the light sweep on the whole category box */
+.category-card::after {
+    display: none !important;
+}
+
+/* Light sweep ONLY inside the Explore button */
+.category-card .explore {
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.category-card .explore::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 65%;
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.7),
+        transparent
+    );
+
+    transform: skewX(-22deg);
+    transition: left 0.65s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.category-card .explore:hover::after {
+    left: 150%;
+}
+
+
+/* ===== PRICING BUTTON ALIGNMENT FIX ===== */
+.pricing {
+    align-items: stretch;
+}
+
+.pricing > .price-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-width: 0;
+}
+
+/* Keep each pricing button centered and at the bottom of its card */
+.pricing > .price-card > .btn.btn-secondary {
+    align-self: center;
+    margin-top: auto;
+    flex-shrink: 0;
+}
+
+/* Keep spacing above the bottom-aligned button consistent */
+.pricing > .price-card > .features {
+    margin-bottom: 24px;
+}
+
+/* ===== NEXER GIFTWEB RESPONSIVE FIX ===== */
+
+/* Prevent unwanted horizontal scrolling */
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+}
+
+img,
+video,
+iframe {
+    max-width: 100%;
+}
+
+/* Keep category cards equal in height */
+.categories {
+    align-items: stretch;
+}
+
+.category-card {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.category-card p {
+    width: 100%;
+}
+
+.category-card .explore {
+    margin-top: auto;
+    flex-shrink: 0;
+}
+
+/* Tablet */
+@media (max-width: 850px) {
+    section {
+        width: 92%;
+        padding: 75px 0;
+    }
+
+    .categories,
+    .portfolio,
+    .pricing {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .service-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .category-card {
+        padding: clamp(16px, 3vw, 24px);
+    }
+}
+
+/* Mobile phones: 2 category cards side by side */
+@media (max-width: 600px) {
+    nav {
+        top: 10px;
+        width: 94%;
+        padding: 11px 13px;
+        border-radius: 15px;
+    }
+
+    .logo {
+        font-size: clamp(14px, 4vw, 19px);
+    }
+
+    .nav-btn {
+        padding: 9px 12px;
+        font-size: 12px;
+    }
+
+    section {
+        width: 92%;
+        padding: 55px 0;
+    }
+
+    .hero {
+        min-height: 90svh;
+        padding: 115px 16px 55px;
+    }
+
+    .hero h1 {
+        font-size: clamp(36px, 9vw, 50px);
+        line-height: 1.08;
+    }
+
+    .hero p {
+        font-size: clamp(13px, 3.6vw, 16px);
+        line-height: 1.75;
+    }
+
+    .section-heading {
+        margin-bottom: 30px;
+    }
+
+    .section-heading h2 {
+        font-size: clamp(28px, 7vw, 38px);
+    }
+
+    .section-heading p {
+        font-size: 13px;
+    }
+
+    /* Two cards per row */
+    .categories {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: clamp(9px, 2.5vw, 14px);
+    }
+
+    .category-card {
+        min-height: 0;
+        padding: clamp(12px, 3.2vw, 18px);
+        border-radius: clamp(15px, 4vw, 21px);
+    }
+
+    .category-card .icon {
+        width: clamp(38px, 11vw, 50px);
+        height: clamp(38px, 11vw, 50px);
+        font-size: clamp(22px, 6vw, 28px);
+        border-radius: 13px;
+        margin-bottom: 13px;
+    }
+
+    .category-card h3 {
+        width: 100%;
+        font-size: clamp(13px, 3.5vw, 16px);
+        line-height: 1.45;
+        letter-spacing: -0.3px;
+        overflow-wrap: anywhere;
+    }
+
+    .category-card p {
+        font-size: clamp(10px, 2.8vw, 12px);
+        line-height: 1.65;
+        overflow-wrap: anywhere;
+    }
+
+    .category-card .explore {
+        min-width: 0;
+        width: 100%;
+        min-height: 36px;
+        padding: 9px 4px;
+        margin-top: auto;
+        margin-bottom: 0;
+        font-size: clamp(9px, 2.6vw, 11px);
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+    }
+
+    /* Service cards adapt to phone width */
+    .service-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .service-card {
+        min-width: 0;
+        padding: clamp(12px, 3vw, 17px);
+        border-radius: 17px;
+    }
+
+    .service-card h4 {
+        font-size: clamp(13px, 3.5vw, 16px);
+        overflow-wrap: anywhere;
+    }
+
+    .service-card p {
+        font-size: clamp(11px, 2.9vw, 12px);
+        line-height: 1.65;
+        min-height: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .service-card .service-icon {
+        width: 42px;
+        height: 42px;
+        font-size: 23px;
+    }
+
+    .card-actions {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        margin-top: 15px;
+    }
+
+    .card-actions a,
+    .card-actions button {
+        width: 100%;
+        min-height: 38px;
+        padding: 10px 5px;
+        font-size: 11px;
+    }
+
+    .service-header h3 {
+        font-size: clamp(24px, 6vw, 30px);
+    }
+
+    /* Pricing cards remain readable */
+    .pricing {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .price-card,
+    .price-card.featured {
+        padding: 25px 21px;
+        transform: none;
+    }
+
+    .price {
+        font-size: clamp(29px, 8vw, 36px);
+    }
+
+    .price-card .features li {
+        font-size: 12px;
+    }
+
+    .price-card > .btn {
+        max-width: 100%;
+    }
+
+    .portfolio {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .portfolio-card {
+        height: clamp(150px, 45vw, 220px);
+    }
+
+    .cta {
+        padding: 55px 18px;
+        border-radius: 24px;
+    }
+
+    .cta h2 {
+        font-size: clamp(27px, 7vw, 36px);
+    }
+
+    .modal {
+        padding: 12px;
+    }
+
+    .modal-box {
+        max-height: 90svh;
+        overflow-y: auto;
+        padding: 27px 19px;
+    }
+}
+
+/* Very narrow phones */
+@media (max-width: 360px) {
+    .categories {
+        gap: 8px;
+    }
+
+    .category-card {
+        padding: 10px;
+    }
+
+    .category-card h3 {
+        font-size: 12px;
+    }
+
+    .category-card p {
+        font-size: 10px;
+    }
+
+    .category-card .explore {
+        font-size: 9px;
+        letter-spacing: 0;
+    }
+
+    .service-grid {
+        gap: 9px;
+    }
+
+    .service-card {
+        padding: 10px;
+    }
+
+    .card-actions button {
+        font-size: 10px;
+    }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="stars" id="stars"></div>
+
+<!-- NAVBAR -->
+<nav>
+    <div class="logo">NEXER <span>GIFTWEB</span></div>
+
+    <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <a href="#services" class="nav-btn">Explore </a>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="home">
+    <div class="hero-content">
+
+        <div class="badge">Premium Digital Gift Experiences</div>
+
+        <h1>
+            Turn Your Feelings<br>
+            Into <span>Memories.</span>
+        </h1>
+
+        <p>
+            Create beautiful, personalized and interactive digital gifts
+            for the people who matter most. Make every moment unforgettable
+            with Nexer GiftWeb.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="#services" class="btn btn-primary">
+                Explore Services →
+            </a>
+
+            <a href="#portfolio" class="btn btn-secondary">
+                View Portfolio
+            </a>
+        </div>
+
+    </div>
+</header>
+
+<!-- SERVICES -->
+<section id="services">
+
+    <div class="section-heading">
+        <div class="small">What We Create</div>
+        <h2>Our Services</h2>
+        <p>
+            Choose a category and discover the perfect digital experience
+            for your special moment.
+        </p>
+    </div>
+
+    <!-- CATEGORY -->
+    <div class="categories" id="categoryGrid">
+
+        <div class="category-card" style="--glow:#ec4899"
+             onclick="openCategory('love')">
+ 
+            <h3>Love & Relationship</h3>
+            <p>
+                Romantic stories, proposals, anniversaries and
+                special experiences for couples.
+            </p>
+            <span class="explore">Explore →</span>
+        </div>
+
+        <div class="category-card" style="--glow:#f59e0b"
+             onclick="openCategory('birthday')">
+ 
+            <h3>Birthday</h3>
+            <p>
+                Surprise someone with a beautiful personalized
+                birthday experience.
+            </p>
+            <span class="explore">Explore →</span>
+        </div>
+
+        <div class="category-card" style="--glow:#f43f5e"
+             onclick="openCategory('moments')">
+ 
+            <h3>Special Moments</h3>
+            <p>
+                Engagement, wedding, graduation, baby announcements
+                and more.
+            </p>
+            <span class="explore">Explore →</span>
+        </div>
+
+        <div class="category-card" style="--glow:#6366f1"
+             onclick="openCategory('digital')">
+ 
+            <h3>Digital Gift</h3>
+            <p>
+                Interactive gift boxes, secret messages, memory boxes
+                and music experiences.
+            </p>
+            <span class="explore">Explore →</span>
+        </div>
+
+        <div class="category-card" style="--glow:#10b981"
+             onclick="openCategory('emotional')">
+ 
+            <h3>Emotional & Personal</h3>
+            <p>
+                Personal letters, thank-you pages, friendship and
+                family experiences.
+            </p>
+            <span class="explore">Explore →</span>
+        </div>
+
+        <div class="category-card" style="--glow:#f5d76e"
+             onclick="openCategory('premium')">
+ 
+            <h3>Premium Combo</h3>
+            <p>
+                Complete premium experiences designed especially
+                for unforgettable moments.
+            </p>
+            <span class="explore">Explore →</span>
+        </div>
+
+    </div>
+
+    <!-- SERVICE DETAILS -->
+    <div id="serviceContainer"></div>
+
+</section>
+
+
+
+
+
+<!-- PRICING -->
+<section id="pricing">
+
+    <div class="section-heading">
+        <div class="small">Our Packages</div>
+        <h2>Choose Your Experience</h2>
+        <p>
+            Choose the perfect package for your special digital gift.
+        </p>
+    </div>
+
+
+    <div class="pricing">
+
+
+        <!-- PRE-MADE -->
+        <div class="price-card">
+
+            <h3>📦 Pre-Made</h3>
+
+            <div class="price">
+                ৳299 – ৳499 <span>/ website</span>
+            </div>
+
+            <p style="color:#94a3b8;font-size:13px;line-height:1.6;margin-top:10px;">
+                Choose a ready-made design, add your memories,
+                and get your special website quickly. ❤️
+            </p>
+
+            <ul class="features">
+                <li>✓ Ready-Made Website</li>
+                <li>✓ Professional Design</li>
+                <li>✓ Mobile Responsive</li>
+                <li>✓ Custom Name & Text</li>
+                <li>✓ Your Photos Added</li>
+                <li>✓ Background Music</li>
+                <li>✓ Basic Animation</li>
+                <li>✓ Fast Delivery</li>
+                <li>✓ WhatsApp Support</li>
+            </ul>
+
+            <button
+                class="btn btn-secondary"
+                onclick="openOrder('Pre-Made Website')">
+                Order Pre-Made →
+            </button>
+
+        </div>
+
+
+        <!-- PREMIUM -->
+        <div class="price-card featured">
+
+            <h3>✨ Premium</h3>
+
+            <div class="price">
+                ৳599 – ৳999 <span>/ website</span>
+            </div>
+
+            <p style="color:#94a3b8;font-size:13px;line-height:1.6;margin-top:10px;">
+                A more beautiful and interactive experience
+                with premium design and advanced features. ✨
+            </p>
+
+            <ul class="features">
+                <li>✓ Premium Website Design</li>
+                <li>✓ Fully Mobile Responsive</li>
+                <li>✓ Custom Name & Text</li>
+                <li>✓ Multiple Photo Sections</li>
+                <li>✓ Background Music</li>
+                <li>✓ Advanced Animation</li>
+                <li>✓ Interactive Elements</li>
+                <li>✓ Premium Effects</li>
+                <li>✓ Custom Color & Theme</li>
+                <li>✓ Fast Delivery</li>
+                <li>✓ WhatsApp Support</li>
+            </ul>
+
+            <button
+               class="btn btn-secondary"
+               onclick="openOrder('Premium Website')">
+                Order Premium →
+            </button>
+
+        </div>
+
+
+        <!-- CUSTOM -->
+        <div class="price-card">
+
+            <h3>👑 Custom</h3>
+
+            <div class="price">
+                Custom
+            </div>
+
+            <p style="color:#94a3b8;font-size:13px;line-height:1.6;margin-top:10px;">
+                Your idea, your design, your experience.
+                Everything is created according to your requirements. 👑
+            </p>
+
+            <ul class="features">
+                <li>✓ Fully Custom Design</li>
+                <li>✓ Unique Website Concept</li>
+                <li>✓ Custom UI/UX</li>
+                <li>✓ Advanced Animation</li>
+                <li>✓ Custom Effects</li>
+                <li>✓ Interactive Features</li>
+                <li>✓ Custom Music & Media</li>
+                <li>✓ Special Requests</li>
+                <li>✓ Personalized Experience</li>
+                <li>✓ WhatsApp Support</li>
+            </ul>
+
+            <button
+                class="btn btn-secondary"
+                onclick="openOrder('Custom Website')">
+                Discuss Project →
+            </button>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+</section>
+
+<!-- CTA -->
+<section id="contact">
+
+    <div class="cta">
+
+        <h2>Make Someone Smile Today. ❤️</h2>
+
+        <p>
+            Give someone more than a normal gift.
+            Give them a digital memory they can keep forever.
+        </p>
+
+        <button class="btn btn-primary"
+                onclick="openOrder('Custom Gift Website')">
+            Create My Gift →
+        </button>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+    © 2026 <strong>Nexer GiftWeb</strong>. All Rights Reserved.
+</footer>
+
+<!-- ORDER MODAL -->
+<div class="modal" id="orderModal">
+
+    <div class="modal-box">
+
+        <div class="close" onclick="closeOrder()">×</div>
+
+        <h2>Let's Create Something Special ❤️</h2>
+
+        <p id="selectedService">
+            Tell us what kind of digital gift you want.
+        </p>
+
+<form onsubmit="sendOrder(event)">
+
+    <!-- NAME -->
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input
+            type="text"
+            id="name"
+            placeholder="Enter your name"
+            required
+        >
+    </div>
+
+
+    <!-- WHATSAPP NUMBER -->
+    <div class="form-group">
+        <label for="contactNumber">WhatsApp Number</label>
+        <input
+            type="tel"
+            id="contactNumber"
+            placeholder="01XXXXXXXXX"
+            required
+        >
+    </div>
+
+
+    <!-- SELECT PACKAGE -->
+    <div class="form-group">
+        <label for="package">Select Package</label>
+
+        <select id="package" required>
+            <option value="">Choose a package</option>
+            <option value="Pre-Made — ৳299–৳499">
+                📦 Pre-Made — ৳299–৳499
+            </option>
+            <option value="Premium — ৳599–৳999">
+                ✨ Premium — ৳599–৳999
+            </option>
+            <option value="Custom — Custom Price">
+                👑 Custom — Custom Price
+            </option>
+        </select>
+    </div>
+
+
+    <!-- SELECT SERVICE -->
+    <div class="form-group">
+        <label for="serviceSelect">Select Service</label>
+
+        <select id="serviceSelect" required>
+            <option value="">Choose a service</option>
+
+            <option value="Love Story">💕 Love Story</option>
+            <option value="Proposal">💌 Proposal</option>
+            <option value="Anniversary">💖 Anniversary</option>
+            <option value="Girlfriend Special">🥰 Girlfriend Special</option>
+            <option value="Boyfriend Special">😎 Boyfriend Special</option>
+            <option value="Long Distance Love">🫶 Long Distance Love</option>
+            <option value="Valentine Special">💖 Valentine Special</option>
+            <option value="Sorry / Man Bhanganো">💔 Sorry / Man Bhanganো</option>
+
+            <option value="Birthday Surprise">🎂 Birthday Surprise</option>
+            <option value="Birthday Gift">🎁 Birthday Gift</option>
+            <option value="Birthday Countdown">⏳ Birthday Countdown</option>
+            <option value="Birthday Memories">📸 Birthday Memories</option>
+            <option value="Birthday Wishes">💝 Birthday Wishes</option>
+            <option value="Kids Birthday">🎈 Kids Birthday</option>
+
+            <option value="Engagement">💍 Engagement</option>
+            <option value="Wedding Invitation">💒 Wedding Invitation</option>
+            <option value="Marriage Anniversary">❤️ Marriage Anniversary</option>
+            <option value="Baby Announcement">👶 Baby Announcement</option>
+            <option value="Baby Shower">🍼 Baby Shower</option>
+            <option value="Graduation">🎓 Graduation</option>
+
+            <option value="Digital Gift Box">🎁 Digital Gift Box</option>
+            <option value="Secret Message">💌 Secret Message</option>
+            <option value="Unlock My Gift">🔐 Unlock My Gift</option>
+            <option value="Surprise Box">🎀 Surprise Box</option>
+            <option value="Memory Box">📦 Memory Box</option>
+            <option value="Photo Gallery Gift">🖼️ Photo Gallery Gift</option>
+            <option value="Music \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\& Memories">🎵 Music & Memories</option>
+
+            <option value="Sorry">🥺 Sorry</option>
+            <option value="Thank You">❤️ Thank You</option>
+            <option value="Friendship Special">🫂 Friendship Special</option>
+            <option value="Family Special">👨‍👩‍👧 Family Special</option>
+            <option value="You Are Special">🌹 You Are Special</option>
+            <option value="Memory Lane">💭 Memory Lane</option>
+            <option value="Personal Love Letter">✍️ Personal Love Letter</option>
+
+            <option value="Love Story Combo">❤️ Love Story Combo</option>
+            <option value="Birthday Combo">🎂 Birthday Combo</option>
+            <option value="Proposal Combo">💍 Proposal Combo</option>
+            <option value="Ultimate Surprise Combo">🎁 Ultimate Surprise Combo</option>
+            <option value="Couple Premium Website">💕 Couple Premium Website</option>
+            <option value="Custom Premium Website">👑 Custom Premium Website</option>
+
+        </select>
+    </div>
+
+
+    <!-- MESSAGE -->
+    <div class="form-group">
+        <label for="message">
+    Message / Requirements
+    <span style="color:#64748b;font-size:12px;">(Optional)</span>
+</label>
+        <textarea
+            id="message"
+            rows="4"
+            placeholder="Tell us what you want in your website..."
+ 
+        ></textarea>
+    </div>
+
+
+    <!-- SUBMIT -->
+    <button type="submit" class="btn btn-primary">
+        💬 Order via WhatsApp
+    </button>
+
+</form>
+
+    </div>
+
+</div>
+
+<script>
+
+/* =========================
+   STAR BACKGROUND
+========================= */
+
+const stars = document.getElementById("stars");
+
+for(let i=0;i<90;i++){
+
+    const star = document.createElement("div");
+
+    star.className = "star";
+
+    star.style.left = Math.random()*100 + "%";
+    star.style.top = Math.random()*100 + "%";
+    star.style.animationDelay = Math.random()*4 + "s";
+
+    stars.appendChild(star);
+}
+
+
+/* =========================
+   SERVICES DATA
+========================= */
+
+const services = {
+
+    love:{
+        title:" Love & Relationship",
+        items:[
+            ["","Love Story","Turn your relationship journey into a beautiful digital story."],
+            ["","Proposal","Create a memorable digital proposal for your special person."],
+            ["","Anniversary","Celebrate your special day with a personalized experience."],
+            ["","Girlfriend Special","A special website made just for her."],
+            ["","Boyfriend Special","Create something unforgettable for him."],
+            ["","Long Distance Love","Keep your love connected even from far away."],
+            ["","Valentine Special","A romantic digital surprise for Valentine's Day."],
+            ["","Sorry Spatial","Say sorry in a creative and emotional way."]
+        ]
+    },
+
+birthday:{
+    title:" Birthday",
+    items:[
+        ["","Birthday Surprise","A beautiful surprise website for a birthday."],
+        ["","Birthday Gift","Turn your birthday gift into a digital experience."],
+        ["","Birthday Countdown","Build excitement with an interactive countdown."],
+        ["","Birthday Memories","Collect and present beautiful birthday memories."],
+        ["","Birthday Wishes","Create a personalized birthday wish page."],
+        ["","Kids Birthday","Fun and colorful digital birthday experience."],
+
+        ["","Girlfriend Birthday Special","A romantic and personalized birthday website made especially for your girlfriend. ❤️"],
+        ["","Boyfriend Birthday Special","A special personalized birthday website made especially for your boyfriend. 💙"],
+        ["","Best Friend Birthday Special","A fun and memorable digital birthday experience made especially for your best friend. 🫶"]
+    ]
+},
+    moments:{
+        title:" Special Moments",
+        items:[
+            ["","Engagement","Celebrate the beginning of a beautiful journey."],
+            ["","Wedding Invitation","A modern interactive digital wedding invitation."],
+            ["","Marriage Anniversary","Celebrate years of love and memories."],
+            ["","Baby Announcement","Share your beautiful news in a special way."],
+            ["","Baby Shower","Create a memorable baby shower experience."],
+            ["","Graduation","Celebrate an important milestone."]
+        ]
+    },
+
+    digital:{
+        title:" Digital Gift",
+        items:[
+            ["","Digital Gift Box","A virtual gift box full of surprises."],
+            ["","Secret Message","Hide a personal message for someone special."],
+            ["","Unlock My Gift","Let them unlock their surprise step by step."],
+            ["","Surprise Box","An interactive surprise experience."],
+            ["","Memory Box","Store special memories inside a digital box."],
+            ["","Photo Gallery Gift","A beautiful interactive photo gallery."],
+            ["","Music & Memories","Combine photos, memories and music."]
+        ]
+    },
+
+    emotional:{
+        title:" Emotional & Personal",
+        items:[
+            ["","Sorry","A heartfelt digital apology."],
+            ["","Thank You","Show someone how much you appreciate them."],
+            ["","Friendship Special","Celebrate a special friendship."],
+            ["","Family Special","A personalized experience for family."],
+            ["","You Are Special","Tell someone how important they are."],
+            ["","Memory Lane","Walk through your favorite memories."],
+            ["","Personal Love Letter","A beautiful digital personal letter."]
+        ]
+    },
+
+    premium:{
+        title:" Premium Combo",
+        items:[
+            ["","Love Story Combo","A complete romantic digital experience."],
+            ["","Birthday Combo","Multiple birthday features in one website."],
+            ["","Proposal Combo","A premium interactive proposal experience."],
+            ["","Ultimate Surprise Combo","The ultimate digital surprise package."],
+            ["","Couple Premium Website","A complete premium couple website."],
+            ["","Custom Premium Website","Fully customized premium experience."]
+        ]
+    }
+
+};
+
+
+/* =========================
+   OPEN CATEGORY
+========================= */
+
+
+function openCategory(category) {
+
+    const data = services[category];
+
+    document.getElementById("categoryGrid").style.display = "none";
+
+    const container = document.getElementById("serviceContainer");
+
+    container.innerHTML = `
+        <div class="service-section active">
+
+            <div class="service-header">
+                <h3>${data.title}</h3>
+
+                <button
+                    class="back-btn"
+                    onclick="backToCategories()">
+                    ← All Categories
+                </button>
+            </div>
+
+            <div class="service-grid">
+
+                ${data.items.map((item, index) => `
+                    <div class="service-card">
+
+                        <h4>${item[1]}</h4>
+
+                        <p>${item[2]}</p>
+
+                        <div class="card-actions">
+
+                            <button
+                                class="preview"
+                                onclick="previewService('${item[1]}')">
+                                Preview
+                            </button>
+
+                            <button
+                                class="order"
+                                onclick="openOrder('${item[1]}')">
+                                Order
+                            </button>
+
+                        </div>
+
+                    </div>
+                `).join("")}
+
+            </div>
+        </div>
+    `;
+
+    document.getElementById("services")
+        .scrollIntoView({ behavior: "smooth" });
+}
+
+
+/* =========================
+   BACK
+========================= */
+
+function backToCategories(){
+
+    document.getElementById("serviceContainer").innerHTML = "";
+
+    document.getElementById("categoryGrid").style.display =
+        "grid";
+
+}
+
+
+/* =========================
+   PREVIEW
+========================= */
+
+function previewService(service){
+
+    alert(
+        "✨ Preview: " +
+        service +
+        "\n\nএখানে তোমার আসল demo website-এর link বসাতে পারবে।"
+    );
+
+}
+
+
+/* =========================
+   ORDER MODAL
+========================= */
+
+const modal =
+    document.getElementById("orderModal");
+
+function openOrder(service){
+
+    document.getElementById("selectedService").innerHTML =
+        "Selected Service: <strong>" +
+        service +
+        "</strong>";
+
+    modal.classList.add("active");
+
+}
+
+function closeOrder(){
+
+    modal.classList.remove("active");
+
+}
+
+modal.addEventListener("click",function(e){
+
+    if(e.target === modal){
+        closeOrder();
+    }
+
+});
+
+
+/* =========================
+   SEND ORDER
+========================= */
+
+function sendOrder(e){
+
+    e.preventDefault();
+
+    const name =
+        document.getElementById("name").value;
+
+    const contact =
+        document.getElementById("contactNumber").value;
+
+    const message =
+        document.getElementById("message").value;
+
+    const service =
+        document.getElementById("selectedService")
+        .innerText;
+
+ 
+    const whatsapp = "8801610615278";
+
+    const text =
+        `Hello Nexer GiftWeb!%0A%0A` +
+        `Name: ${encodeURIComponent(name)}%0A` +
+        `Contact: ${encodeURIComponent(contact)}%0A` +
+        `${encodeURIComponent(service)}%0A` +
+        `Message: ${encodeURIComponent(message)}`;
+
+    window.open(
+        `https://wa.me/${whatsapp}?text=${text}`,
+        "_blank"
+    );
+
+}
+
+</script>
+
+<script>
+(() => {
+    // Save the original website functions
+    const originalOpenCategory = window.openCategory;
+    const originalBackToCategories = window.backToCategories;
+
+    if (
+        typeof originalOpenCategory !== "function" ||
+        typeof originalBackToCategories !== "function"
+    ) {
+        console.error("Nexer GiftWeb: Navigation functions not found.");
+        return;
+    }
+
+    // Mark the current screen as the category screen
+    history.replaceState(
+        { nexerView: "categories" },
+        "",
+        location.href
+    );
+
+    let handlingPopState = false;
+
+    // Open a category and save it in browser history
+    window.openCategory = function (category) {
+        history.pushState(
+            { nexerView: "category", category: category },
+            "",
+            location.pathname + location.search + "#category-" +
+                encodeURIComponent(category)
+        );
+
+        originalOpenCategory(category);
+    };
+
+    // Keep the existing website Back button
+    window.backToCategories = function () {
+        if (!handlingPopState &&
+            history.state?.nexerView === "category") {
+            history.back();
+            return;
+        }
+
+        originalBackToCategories();
+    };
+
+    // Handle phone/browser Back and Forward buttons
+    window.addEventListener("popstate", function (event) {
+        handlingPopState = true;
+
+        if (event.state?.nexerView === "category") {
+            originalOpenCategory(event.state.category);
+        } else {
+            originalBackToCategories();
+        }
+
+        handlingPopState = false;
+    });
+})();
+</script>
+
+</body>
+</html>
